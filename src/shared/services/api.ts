@@ -18,6 +18,7 @@ api.interceptors.response.use(
   },
 
   (error) => {
+    console.log(error?.response)
     const translatedMessage = error.response?.data?.error
       ? errorMessages[error.response?.data?.error]
       : "Erro inesperado"
