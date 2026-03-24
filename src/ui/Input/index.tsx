@@ -1,27 +1,22 @@
-interface IInputProps {
-  placeholder: string
+interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
-  onChange: (event: any) => void
   error?: boolean
 }
 
 export const Input = (props: IInputProps) => {
-  const { placeholder, label, onChange, error } = props
+  const { placeholder, label, onChange, error, type } = props
   return (
     <div>
       <label>
-        <span className="font-bold text-gray-400">{label}</span> <br />
+        <span className="font-bold text-gray-400 block mb-1">{label}</span>
         <input
           placeholder={placeholder}
-          type="text"
           onChange={onChange}
-          style={{
-            border: `1px solid ${error ? "#EF4444" : "#374151"}`,
-            borderRadius: 4,
-            padding: 8,
-            backgroundColor: "#101828",
-            width: "100%",
-          }}
+          type={type ?? "text"}
+          className={`w-full  rounded bg-[#101828] border ${
+            error ? "border-red-500" : "border-gray-700"
+          }`}
+          style={{ padding: 8 }}
         />
       </label>
     </div>

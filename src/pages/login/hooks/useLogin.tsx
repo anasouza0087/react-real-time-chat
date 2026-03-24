@@ -1,35 +1,33 @@
 import { useState } from "react"
+import { Login } from "../services"
 
 interface ILoginForm {
-  email: string
+  username: string
   password: string
 }
 
 export const useLogin = () => {
   const [loginForm, setLoginForm] = useState<ILoginForm>({
-    email: "",
+    username: "",
     password: "",
   })
   const [showError, setShowError] = useState(false)
 
-  const onChangeLoginForm = (name: "email" | "password", value: string) => {
+  const onChangeLoginForm = (name: "username" | "password", value: string) => {
     setLoginForm({
       ...loginForm,
       [name]: value,
     })
   }
 
-  const handleLogin = () => {
-    //faz validações
-    //chama a api
-
-    if (!loginForm.email || !loginForm.password) {
-      console.log(loginForm)
+  const handleLogin = async () => {
+    if (!loginForm.username || !loginForm.password) {
       setShowError(true)
       return
     }
-    console.log(loginForm)
-    setShowError(false)
+    await Login(loginForm.username, loginForm.password).then(() => {
+      setShowError(false)
+    })
   }
 
   return {

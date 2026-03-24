@@ -1,17 +1,19 @@
-interface IButtonProps {
+interface IButtonProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
-  onClick: () => void
+  onClick?: () => void
+  type?: "submit" | "reset" | "button"
 }
 
 export const Button = (props: IButtonProps) => {
-  const { label, onClick } = props
+  const { label, onClick, type } = props
   return (
     <button
-      className=" bg-indigo-600 rounded-md cursor-pointer"
-      style={{ padding: 8, width: "100%" }}
+      className=" bg-indigo-600 rounded-md cursor-pointer w-full font-bold"
+      style={{ padding: 8 }}
       onClick={onClick}
+      type={type ?? "button"}
     >
-      <b>{label}</b>
+      {label}
     </button>
   )
 }
