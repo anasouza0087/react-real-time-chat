@@ -6,9 +6,18 @@ export const api = axios.create({
   baseURL: "http://localhost:3000",
 })
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token")
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
+  return config
+})
+
 api.interceptors.response.use(
   (response) => {
-    console.log(response)
     if (response.data?.message) {
       const translatedMessage = successMessages[response.data?.message]
       showSuccess(translatedMessage)
@@ -16,9 +25,7 @@ api.interceptors.response.use(
 
     return response
   },
-
   (error) => {
-    console.log(error?.response)
     const translatedMessage = error.response?.data?.error
       ? errorMessages[error.response?.data?.error]
       : "Erro inesperado"
