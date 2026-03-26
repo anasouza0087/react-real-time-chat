@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
+import { Outlet, useNavigate } from "react-router-dom"
 import { AuthContext, type User } from "./AuthContext"
 import { getMe } from "../services/auth"
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function loadUser() {
@@ -24,12 +26,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   function logout() {
     localStorage.removeItem("token")
     setUser(null)
-    window.location.href = "/login"
+    navigate("/login")
   }
 
   return (
     <AuthContext.Provider value={{ user, loading, logout }}>
-      {children}
+      {/* {children} */}
+      {loading ? (
+        <div className="w-full h-screen flex items-center justify-center">
+          <span>Carregando...</span>
+        </div>
+      ) : (
+        <Outlet />
+      )}
     </AuthContext.Provider>
   )
 }

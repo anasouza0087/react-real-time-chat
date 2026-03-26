@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { login, createUser } from "../services"
+import { useNavigate } from "react-router"
 
 interface ILoginForm {
   username: string
@@ -16,6 +17,7 @@ export const useLogin = () => {
     password: "",
   })
   const [showError, setShowError] = useState(false)
+  const navigate = useNavigate()
 
   const onChangeLoginForm = (name: formName, value: string) => {
     setLoginForm({
@@ -39,6 +41,7 @@ export const useLogin = () => {
     }
     await login(loginForm.username, loginForm.password).then(() => {
       setShowError(false)
+      navigate("/chats")
     })
   }
 
@@ -63,8 +66,7 @@ export const useLogin = () => {
     }
     await createUser(newUser).then((resp) => {
       setShowError(false)
-      console.log(resp)
-      //retorna para a tela de login
+      navigate("/chats")
     })
   }
 

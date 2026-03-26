@@ -1,13 +1,20 @@
 import { createBrowserRouter } from "react-router-dom"
 import { Login } from "../login"
+import { Chats } from "../chats"
+import { AuthProvider } from "../../shared"
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/chat",
-    // element: </>,
+    element: <AuthProvider />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/chats",
+        element: <Chats />,
+      },
+    ],
   },
 ])

@@ -16,7 +16,7 @@ export const Login = () => {
   return (
     <div className="w-full h-screen flex items-center justify-center px-4">
       <div
-        className={`border-2 border-gray-700 rounded-md w-full sm:w-4/5 md:w-2/3 lg:w-1/2 h-auto min-h-[${createLogin ? "70vh" : "60vh"}] bg-gray-800 flex items-center justify-center py-8`}
+        className={`border-2 border-gray-700 rounded-md w-full sm:w-4/5 md:w-2/3 lg:w-1/2 h-auto min-h-[70vh] bg-gray-800 flex items-center justify-center py-8`}
       >
         <form
           onSubmit={onSubmit}
@@ -63,10 +63,8 @@ export const Login = () => {
                   onChange={(e) =>
                     onChangeLoginForm("passwordCheck", e.target.value)
                   }
-                  error={showError && !loginForm.passwordCheck && createLogin}
-                  aria-invalid={
-                    showError && !loginForm.passwordCheck && createLogin
-                  }
+                  error={showError && !loginForm.passwordCheck}
+                  aria-invalid={showError && !loginForm.passwordCheck}
                   type="password"
                 />
               )}
