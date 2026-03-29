@@ -9,6 +9,8 @@ interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const Input = (props: IInputProps) => {
   const [showPassword, setShowPassword] = useState(false)
   const { placeholder, label, onChange, error, type } = props
+
+
   return (
     <div>
       <label>
@@ -21,6 +23,7 @@ export const Input = (props: IInputProps) => {
             className={`w-full  rounded bg-[#101828] border ${
               error ? "border-red-500" : "border-gray-700"
             } text-gray-400`}
+            {...props}
             style={{ padding: 8 }}
           />
           {type === "password" && (

@@ -41,7 +41,7 @@ export const useLogin = () => {
     }
     await login(loginForm.username, loginForm.password).then(() => {
       setShowError(false)
-      navigate("/chats")
+      navigate("/rooms")
     })
   }
 
@@ -66,7 +66,7 @@ export const useLogin = () => {
     }
     await createUser(newUser).then((resp) => {
       setShowError(false)
-      navigate("/chats")
+      navigate("/rooms")
     })
   }
 

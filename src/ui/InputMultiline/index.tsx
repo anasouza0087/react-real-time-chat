@@ -13,6 +13,7 @@ export const InputMultiline = (props: IInputMultilineProps) => {
           onChange={onChange}
           placeholder={placeholder}
           className={`w-full rounded bg-[#101828] border text-gray-400`}
+          {...props}
           style={{ padding: 8 }}
         />
       </label>

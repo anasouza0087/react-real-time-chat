@@ -26,7 +26,7 @@ export function AuthProvider() {
   function logout() {
     localStorage.removeItem("token")
     setUser(null)
-    navigate("/login")
+    navigate("/")
   }
 
   return (
