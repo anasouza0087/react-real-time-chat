@@ -3,8 +3,8 @@ import {
   CreateRoomButton,
   RoomsHeader,
   RoomsList,
-} from "./components"
-import { useRoom } from "./hooks/useRoom"
+} from "../components"
+import { useRoom } from "../hooks/useRoom.hook"
 
 export const Rooms = () => {
   const { openModal, setOpenModal } = useRoom()

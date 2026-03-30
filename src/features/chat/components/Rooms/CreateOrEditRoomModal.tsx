@@ -1,7 +1,7 @@
 import { useEffect } from "react"
-import { Input, InputMultiline, Modal } from "../../../ui"
-import { useRoom } from "../hooks/useRoom"
-import type { IRoom } from "../types"
+import { Modal, Input, InputMultiline } from "../../../../ui"
+import { useRoom } from "../../hooks/useRoom.hook"
+import type { IRoom } from "../../types/rooms.types"
 
 interface ICreateOrEditRoomModal {
   open: { isOpen: boolean; data: undefined | Partial<IRoom> }

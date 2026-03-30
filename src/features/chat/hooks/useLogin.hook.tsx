@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { login, createUser } from "../services"
+import { login, createUser } from "../services/login.services"
 import { useNavigate } from "react-router"
 
 interface ILoginForm {
@@ -64,7 +64,7 @@ export const useLogin = () => {
         password: loginForm.password,
       },
     }
-    await createUser(newUser).then((resp) => {
+    await createUser(newUser).then(() => {
       setShowError(false)
       navigate("/rooms")
     })

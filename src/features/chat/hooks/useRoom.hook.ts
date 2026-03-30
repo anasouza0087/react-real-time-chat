@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import type { IRoom } from "../types"
-import { deleteRoom, getRooms, patchRoom, postRoom } from "../services"
+import type { IRoom } from "../types/rooms.types"
+import { deleteRoom, getRooms, patchRoom, postRoom } from "../services/room.services"
 
 export const useRoom = () => {
   const [roomForm, setRoomForm] = useState<Partial<IRoom>>({
@@ -27,7 +27,7 @@ export const useRoom = () => {
   const onListRooms = async () => {
     await getRooms().then((resp) => {
       console.log(resp)
-      setRooms([...resp])
+      setRooms(() => [...resp])
     })
   }
 
@@ -50,14 +50,14 @@ export const useRoom = () => {
         description: roomForm.description,
       },
     }
-    await patchRoom({ ...updatedRoom }, roomForm.id).then(() => {
-      setOpenModal({
-        isOpen: false,
-        data: undefined,
-      })
-      setShowError(false)
-      onListRooms()
+
+    await patchRoom({ ...updatedRoom }, roomForm.id)
+    setOpenModal({
+      isOpen: false,
+      data: undefined,
     })
+    setShowError(false)
+    await onListRooms()
   }
 
   const onCreateRoom = async () => {

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { SlBubble } from "react-icons/sl"
 import { Button, Input } from "../../../ui"
-import { useLogin } from "../hooks/useLogin"
+import { useLogin } from "../hooks/useLogin.hook"
 
 export const Login = () => {
   const [createLogin, setCreateLogin] = useState(false)

@@ -1,6 +1,6 @@
 import { SlBubble } from "react-icons/sl"
 import { IoExit } from "react-icons/io5"
-import { useAuth } from "../../../shared"
+import { useAuth } from "../../../../shared"
 
 export const RoomsHeader = () => {
   const { logout, user } = useAuth()

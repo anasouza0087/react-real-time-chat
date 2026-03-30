@@ -1,7 +1,7 @@
 import { IoChatbubbleOutline } from "react-icons/io5"
-import { useRoom } from "../hooks/useRoom"
-import { RoomCard } from "."
-import type { IRoom } from "../types"
+import { useRoom } from "../../hooks/useRoom.hook"
+import type { IRoom } from "../../types/rooms.types"
+import { RoomCard } from "./RoomCard"
 
 interface IRoomList {
   openModal: React.Dispatch<
