@@ -1,5 +1,5 @@
 import { useParams, useLocation } from "react-router-dom"
-import { MessagesHeader, MessagesList } from "../components"
+import { MessageFooter, MessagesHeader, MessagesList } from "../components"
 import { useMessages } from "../hooks/useMessages.hook"
 import { useEffect } from "react"
 
@@ -14,9 +14,14 @@ export const Messages = () => {
   }, [id])
 
   return (
-    <div>
+    <div className="h-screen flex flex-col">
       <MessagesHeader room={roomNameFromState} />
-      <MessagesList messages={messages} />
+
+      <div className="flex-1 overflow-y-auto">
+        <MessagesList messages={messages} />
+      </div>
+
+      <MessageFooter roomId={id} />
     </div>
   )
 }

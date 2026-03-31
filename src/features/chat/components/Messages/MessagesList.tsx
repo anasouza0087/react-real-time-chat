@@ -1,5 +1,9 @@
+import { useAuth } from "../../../../shared"
+import { MessageBubble } from "./MessageBubble"
+
 export const MessagesList = (props) => {
   const { messages } = props
+  const { user } = useAuth()
 
   const emptyListOfMessages = () => {
     return (
@@ -16,8 +20,26 @@ export const MessagesList = (props) => {
   }
 
   return (
-    <>
-      {messages?.length == 0 ? emptyListOfMessages() : <>lista de mensagens</>}
-    </>
+    <div
+      className="h-full flex flex-col justify-start gap-2"
+      style={{ padding: 16 }}
+    >
+      {messages?.length == 0 ? (
+        emptyListOfMessages()
+      ) : (
+        <>
+          {messages.map((message) => {
+            const messageDirection = message.user_id == user?.id ? "out" : "in"
+            console.log(message)
+            return (
+              <MessageBubble
+                direction={messageDirection}
+                message={message}
+              />
+            )
+          })}
+        </>
+      )}
+    </div>
   )
 }
