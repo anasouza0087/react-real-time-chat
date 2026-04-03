@@ -19,7 +19,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => {
     if (response.data?.message) {
-      const translatedMessage = successMessages[response.data?.message]
+      const translatedMessage =
+        successMessages[response.data?.message] ?? response.data?.message
       showSuccess(translatedMessage)
     }
 

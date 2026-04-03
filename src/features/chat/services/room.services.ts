@@ -31,3 +31,10 @@ export const deleteRoom = async (id: number) => {
   const response = await api.delete(`/rooms/${id}`)
   return response?.data
 }
+
+export const postRoomInvite = async (id: number, userId: number) => {
+  const response = await api.post(`/rooms/${id}/invite`, {
+    user_id: userId,
+  })
+  return response?.data
+}

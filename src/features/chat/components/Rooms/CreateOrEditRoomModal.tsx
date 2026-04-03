@@ -23,7 +23,9 @@ export const CreateOrEditRoomModal = (props: ICreateOrEditRoomModal) => {
 
   return (
     <Modal
+      title="Criar Novo Chat"
       isOpen={open.isOpen}
+      showConfirmationButton={true}
       onClose={() =>
         openModal({
           isOpen: false,

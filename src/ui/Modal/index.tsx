@@ -7,6 +7,8 @@ type ModalProps = {
   children: ReactNode
   confirmText?: string
   cancelText?: string
+  title: string
+  showConfirmationButton?: boolean
 }
 
 export function Modal({
@@ -16,6 +18,8 @@ export function Modal({
   children,
   confirmText = "Confirmar",
   cancelText = "Cancelar",
+  title,
+  showConfirmationButton = false,
 }: ModalProps) {
   if (!isOpen) return null
 
@@ -26,7 +30,7 @@ export function Modal({
         style={{ padding: 12 }}
       >
         <div>
-          <h1 className="font-bold text-2xl">Criar Novo Chat</h1>
+          <h1 className="font-bold text-2xl">{title}</h1>
         </div>
         <div className="mb-6">{children}</div>
 
@@ -39,14 +43,15 @@ export function Modal({
             >
               {cancelText}
             </button>
-
-            <button
-              onClick={onConfirm}
-              className="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 w-full"
-              style={{ padding: 8 }}
-            >
-              {confirmText}
-            </button>
+            {showConfirmationButton && (
+              <button
+                onClick={onConfirm}
+                className="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 w-full"
+                style={{ padding: 8 }}
+              >
+                {confirmText}
+              </button>
+            )}
           </div>
         </div>
       </div>

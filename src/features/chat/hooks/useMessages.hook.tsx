@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { getMessagesByRoomId, postMessage } from "../services/Messages.services"
+import { postRoomInvite } from "../services/room.services"
 
 export const useMessages = () => {
   const [messages, setMessages] = useState<any[]>([])
@@ -11,12 +12,18 @@ export const useMessages = () => {
 
   const createMessage = async (id: number, message: string) => {
     const newMessage = await postMessage(id, message)
-    console.log(newMessage)
     setMessages([...messages, newMessage.content])
   }
+
+  const inviteUser = async (roomId: number, userId: number) => {
+    const invitation = await postRoomInvite(roomId, userId)
+    console.log(invitation)
+  }
+
   return {
     messages,
     listMessages,
     createMessage,
+    inviteUser,
   }
 }

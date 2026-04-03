@@ -3,7 +3,7 @@ import { RxPeople } from "react-icons/rx"
 import { useNavigate } from "react-router"
 
 export const MessagesHeader = (props) => {
-  const { room } = props
+  const { room, openModal } = props
   const navigate = useNavigate()
   return (
     <div className="bg-gray-800 border-2 border-gray-700 min-h-[8vh] flex flex-row justify-between items-center ">
@@ -25,7 +25,7 @@ export const MessagesHeader = (props) => {
           </div>
         </div>
         <div>
-          <RxPeople fontSize={20} />
+          <RxPeople fontSize={20} onClick={() => openModal(true)} />
         </div>
       </div>
     </div>
