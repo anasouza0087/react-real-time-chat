@@ -5,7 +5,7 @@ export const UsersList = (props) => {
   return (
     <div style={{ marginBottom: 30 }}>
       {users.map((user) => (
-        <div className="max-h-80 overflow-y-auto pr-1">
+        <div >
           <div className="flex flex-col gap-2" style={{ marginTop: 8 }}>
             <div
               className="w-full flex items-center justify-between rounded bg-[#101828] border border-gray-700"
@@ -39,3 +39,5 @@ export const UsersList = (props) => {
     </div>
   )
 }
+
+//className="max-h-80 overflow-y-auto pr-1"

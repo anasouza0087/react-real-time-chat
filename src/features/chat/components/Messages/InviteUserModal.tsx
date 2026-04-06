@@ -3,8 +3,15 @@ import { LuUserSearch } from "react-icons/lu"
 import { UsersList } from "./UsersList"
 
 export const InviteUserModal = (props) => {
-  const { onClose, users, querySearch, userQuery, onSearchUser, onInviteUser, roomId } =
-    props
+  const {
+    onClose,
+    users,
+    querySearch,
+    userQuery,
+    onSearchUser,
+    onInviteUser,
+    roomId,
+  } = props
   return (
     <Modal
       isOpen={true}
@@ -28,7 +35,9 @@ export const InviteUserModal = (props) => {
           <LuUserSearch fontSize={30} color="#155DFC" />
         </button>
       </div>
-      <UsersList users={users} onInviteUser={onInviteUser} roomId={roomId}/>
+      <div className="max-h-100 overflow-y-auto pr-1 container-scroll">
+        <UsersList users={users} onInviteUser={onInviteUser} roomId={roomId} />
+      </div>
     </Modal>
   )
 }
