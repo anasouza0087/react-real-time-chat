@@ -38,3 +38,8 @@ export const postRoomInvite = async (id: number, userId: number) => {
   })
   return response?.data
 }
+
+export const deleteLeaveRoom = async (roomID: number) => {
+  const response = await api.delete(`/rooms/${roomID}/leave`)
+  return response?.data
+}

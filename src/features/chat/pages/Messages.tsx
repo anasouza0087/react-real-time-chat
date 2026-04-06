@@ -13,7 +13,7 @@ export const Messages = () => {
   const [openModal, setOpenModal] = useState(false)
   const { id } = useParams()
   const location = useLocation()
-  const { messages, listMessages, inviteUser } = useMessages()
+  const { messages, listMessages, inviteUser, leaveRoom } = useMessages()
   const { setUserQuery, userQuery, users, setUsers, onSearchUser } = useUser()
 
   const roomNameFromState = location.state?.roomName
@@ -29,7 +29,12 @@ export const Messages = () => {
 
   return (
     <div className="h-screen flex flex-col">
-      <MessagesHeader room={roomNameFromState} openModal={setOpenModal} />
+      <MessagesHeader
+        room={roomNameFromState}
+        openModal={setOpenModal}
+        onLeaveRoom={leaveRoom}
+        roomId={id}
+      />
 
       <div className="flex-1 overflow-y-auto">
         <MessagesList messages={messages} />

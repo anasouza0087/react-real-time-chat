@@ -1,9 +1,11 @@
 import { BsArrowLeftShort } from "react-icons/bs"
 import { RxPeople } from "react-icons/rx"
+import { IoExit } from "react-icons/io5"
+
 import { useNavigate } from "react-router"
 
 export const MessagesHeader = (props) => {
-  const { room, openModal } = props
+  const { room, openModal, onLeaveRoom, roomId } = props
   const navigate = useNavigate()
   return (
     <div className="bg-gray-800 border-2 border-gray-700 min-h-[8vh] flex flex-row justify-between items-center ">
@@ -24,8 +26,9 @@ export const MessagesHeader = (props) => {
             <p className="font-light text-gray-400 text-sm">{`${2} Membros`}</p>
           </div>
         </div>
-        <div>
+        <div className="flex items-center gap-4">
           <RxPeople fontSize={20} onClick={() => openModal(true)} />
+          <IoExit fontSize={20} onClick={() => onLeaveRoom(roomId) } />
         </div>
       </div>
     </div>
