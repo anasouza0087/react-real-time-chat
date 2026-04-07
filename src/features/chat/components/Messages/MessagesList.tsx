@@ -1,8 +1,10 @@
+import { useEffect } from "react"
 import { useAuth } from "../../../../shared"
 import { MessageBubble } from "./MessageBubble"
+import { createCable } from "../../../../shared/services/cable"
 
 export const MessagesList = (props) => {
-  const { messages } = props
+  const { messages, roomId, setMessages } = props
   const { user } = useAuth()
 
   const emptyListOfMessages = () => {
@@ -19,6 +21,34 @@ export const MessagesList = (props) => {
     )
   }
 
+  useEffect(() => {
+    if (!roomId) return
+
+    const cable = createCable()
+
+    const subscription = cable.subscriptions.create(
+      { channel: "RoomChannel", room_id: roomId },
+      {
+        connected() {
+          console.log("Conectado na sala", roomId)
+        },
+
+        received(data) {
+          setMessages((prev) => {
+            const exists = prev.some((msg) => msg.id === data.id)
+            if (exists) return prev
+
+            return [...prev, data]
+          })
+        },
+      },
+    )
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [roomId])
+
   return (
     <div
       className="h-full flex flex-col justify-start gap-2"
@@ -30,12 +60,8 @@ export const MessagesList = (props) => {
         <>
           {messages.map((message) => {
             const messageDirection = message.user_id == user?.id ? "out" : "in"
-            console.log(message)
             return (
-              <MessageBubble
-                direction={messageDirection}
-                message={message}
-              />
+              <MessageBubble direction={messageDirection} message={message} />
             )
           })}
         </>

@@ -31,5 +31,6 @@ export const useMessages = () => {
     createMessage,
     inviteUser,
     leaveRoom,
+    setMessages,
   }
 }

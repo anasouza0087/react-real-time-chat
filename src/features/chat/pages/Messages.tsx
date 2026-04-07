@@ -13,7 +13,7 @@ export const Messages = () => {
   const [openModal, setOpenModal] = useState(false)
   const { id } = useParams()
   const location = useLocation()
-  const { messages, listMessages, inviteUser, leaveRoom } = useMessages()
+  const { messages, listMessages, inviteUser, leaveRoom, setMessages } = useMessages()
   const { setUserQuery, userQuery, users, setUsers, onSearchUser } = useUser()
 
   const roomNameFromState = location.state?.roomName
@@ -37,7 +37,7 @@ export const Messages = () => {
       />
 
       <div className="flex-1 overflow-y-auto">
-        <MessagesList messages={messages} />
+        <MessagesList messages={messages} roomId={id} setMessages={setMessages}/>
       </div>
 
       <MessageFooter roomId={id} />
