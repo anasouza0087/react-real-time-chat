@@ -4,7 +4,14 @@ import { IoExit } from "react-icons/io5"
 
 import { useNavigate } from "react-router"
 
-export const MessagesHeader = (props) => {
+interface IChatroomHeaderProps {
+  room: string
+  openModal: React.Dispatch<React.SetStateAction<boolean>>
+  onLeaveRoom: (roomID: number) => Promise<void>
+  roomId: number
+}
+
+export const ChatroomHeader = (props: IChatroomHeaderProps) => {
   const { room, openModal, onLeaveRoom, roomId } = props
   const navigate = useNavigate()
   return (
@@ -23,12 +30,11 @@ export const MessagesHeader = (props) => {
           </div>
           <div>
             <h1 className="font-bold text-2xl">{room}</h1>
-            <p className="font-light text-gray-400 text-sm">{`${2} Membros`}</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
           <RxPeople fontSize={20} onClick={() => openModal(true)} />
-          <IoExit fontSize={20} onClick={() => onLeaveRoom(roomId) } />
+          <IoExit fontSize={20} onClick={() => onLeaveRoom(roomId)} />
         </div>
       </div>
     </div>

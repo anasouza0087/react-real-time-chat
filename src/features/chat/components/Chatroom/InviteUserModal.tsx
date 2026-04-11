@@ -1,8 +1,19 @@
 import { Input, Modal } from "../../../../ui"
 import { LuUserSearch } from "react-icons/lu"
 import { UsersList } from "./UsersList"
+import type { IUser } from "../../types"
 
-export const InviteUserModal = (props) => {
+interface IInviteUserModalProps {
+  onClose: () => void
+  users: IUser[]
+  querySearch: React.Dispatch<React.SetStateAction<string>>
+  userQuery: string
+  onSearchUser: () => Promise<void>
+  onInviteUser: (roomId: number, userId: number) => Promise<void>
+  roomId: number
+}
+
+export const InviteUserModal = (props: IInviteUserModalProps) => {
   const {
     onClose,
     users,

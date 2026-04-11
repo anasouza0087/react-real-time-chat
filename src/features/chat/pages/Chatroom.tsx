@@ -1,19 +1,20 @@
 import { useParams, useLocation } from "react-router-dom"
 import {
+  ChatroomFooter,
+  ChatroomHeader,
   InviteUserModal,
-  MessageFooter,
-  MessagesHeader,
   MessagesList,
 } from "../components"
 import { useMessages } from "../hooks/useMessages.hook"
 import { useEffect, useState } from "react"
 import { useUser } from "../hooks/useUser.hook"
 
-export const Messages = () => {
+export const Chatroom = () => {
   const [openModal, setOpenModal] = useState(false)
   const { id } = useParams()
   const location = useLocation()
-  const { messages, listMessages, inviteUser, leaveRoom, setMessages } = useMessages()
+  const { messages, listMessages, inviteUser, leaveRoom, setMessages } =
+    useMessages()
   const { setUserQuery, userQuery, users, setUsers, onSearchUser } = useUser()
 
   const roomNameFromState = location.state?.roomName
@@ -29,18 +30,22 @@ export const Messages = () => {
 
   return (
     <div className="h-screen flex flex-col">
-      <MessagesHeader
+      <ChatroomHeader
         room={roomNameFromState}
         openModal={setOpenModal}
         onLeaveRoom={leaveRoom}
-        roomId={id}
+        roomId={Number(id)}
       />
 
       <div className="flex-1 overflow-y-auto">
-        <MessagesList messages={messages} roomId={id} setMessages={setMessages}/>
+        <MessagesList
+          messages={messages}
+          roomId={Number(id)}
+          setMessages={setMessages}
+        />
       </div>
 
-      <MessageFooter roomId={id} />
+      <ChatroomFooter roomId={Number(id)} />
 
       {openModal && (
         <InviteUserModal
@@ -50,7 +55,7 @@ export const Messages = () => {
           userQuery={userQuery}
           onSearchUser={onSearchUser}
           onInviteUser={inviteUser}
-          roomId={id}
+          roomId={Number(id)}
         />
       )}
     </div>

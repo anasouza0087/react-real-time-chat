@@ -1,10 +1,11 @@
 import { useState } from "react"
+import { useNavigate } from "react-router"
 import { getMessagesByRoomId, postMessage } from "../services/Messages.services"
 import { deleteLeaveRoom, postRoomInvite } from "../services/room.services"
-import { useNavigate } from "react-router"
+import type { IMessage } from "../types"
 
 export const useMessages = () => {
-  const [messages, setMessages] = useState<any[]>([])
+  const [messages, setMessages] = useState<IMessage[]>([])
   const navigate = useNavigate()
 
   const listMessages = async (id: number) => {

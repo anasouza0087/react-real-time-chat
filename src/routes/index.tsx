@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { Login, Rooms, Messages } from "../features/chat/pages";
+import { Login, Rooms, Chatroom } from "../features/chat/pages";
 import { AuthProvider } from "../shared";
 
 
@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/rooms/:id",
-        element: <Messages />,
+        element: <Chatroom />,
       },
     ],
   },

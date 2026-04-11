@@ -1,4 +1,4 @@
-interface IInputMultilineProps extends React.TextareaHTMLAttributes<any> {
+interface IInputMultilineProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string
 }
 

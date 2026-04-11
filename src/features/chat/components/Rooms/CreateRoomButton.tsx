@@ -1,8 +1,10 @@
 import { FaPlus } from "react-icons/fa"
-import type { IRoom } from "../types"
+import type { IRoom } from "../../types"
 
 interface ICreateRoomButton {
-  openModal: any
+  openModal: React.Dispatch<
+    React.SetStateAction<{ isOpen: boolean; data: undefined | Partial<IRoom> }>
+  >
 }
 
 export const CreateRoomButton = ({ openModal }: ICreateRoomButton) => {

@@ -1,11 +1,18 @@
 import { BiUserPlus } from "react-icons/bi"
+import type { IUser } from "../../types"
 
-export const UsersList = (props) => {
+interface IUsersListProps {
+  users: IUser[]
+  onInviteUser: (roomID: number, userId: number) => Promise<void>
+  roomId: number
+}
+
+export const UsersList = (props: IUsersListProps) => {
   const { users, onInviteUser, roomId } = props
   return (
     <div style={{ marginBottom: 30 }}>
       {users.map((user) => (
-        <div >
+        <div>
           <div className="flex flex-col gap-2" style={{ marginTop: 8 }}>
             <div
               className="w-full flex items-center justify-between rounded bg-[#101828] border border-gray-700"
@@ -13,7 +20,7 @@ export const UsersList = (props) => {
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full text-white font-bold">
-                  T
+                  {user?.username?.charAt(0).toUpperCase()}
                 </div>
 
                 <div className="flex flex-col">

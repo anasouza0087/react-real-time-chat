@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { getUsers } from "../services/user.service"
+import type { IUser } from "../types"
 
 export const useUser = () => {
-  const [users, setUsers] = useState<any[]>([])
+  const [users, setUsers] = useState<IUser[]>([])
   const [userQuery, setUserQuery] = useState("")
 
   const onSearchUser = async () => {

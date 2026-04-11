@@ -1,6 +1,12 @@
 import { format } from "date-fns"
+import type { IMessage } from "../../types"
 
-export const MessageBubble = (props) => {
+interface IMessageBubbleProps {
+  direction: "out" | "in"
+  message: IMessage
+}
+
+export const MessageBubble = (props: IMessageBubbleProps) => {
   const { direction, message } = props
 
   const formatDate = (dateISO: string) => {

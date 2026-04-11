@@ -2,7 +2,11 @@ import { useState } from "react"
 import { IoSendSharp } from "react-icons/io5"
 import { useMessages } from "../../hooks/useMessages.hook"
 
-export const MessageFooter = (props) => {
+interface IChatroomFooterProps {
+  roomId: number
+}
+
+export const ChatroomFooter = (props: IChatroomFooterProps) => {
   const [message, setMessage] = useState("")
   const { createMessage } = useMessages()
   const { roomId } = props

@@ -1,9 +1,16 @@
-import { useEffect } from "react"
+import { useEffect, type Dispatch, type SetStateAction } from "react"
 import { useAuth } from "../../../../shared"
 import { MessageBubble } from "./MessageBubble"
 import { createCable } from "../../../../shared/services/cable"
+import type { IMessage } from "../../types"
 
-export const MessagesList = (props) => {
+interface IMessagesListProps {
+  messages: IMessage[]
+  roomId: number
+  setMessages: Dispatch<SetStateAction<IMessage[]>>
+}
+
+export const MessagesList = (props: IMessagesListProps) => {
   const { messages, roomId, setMessages } = props
   const { user } = useAuth()
 
@@ -33,7 +40,7 @@ export const MessagesList = (props) => {
           console.log("Conectado na sala", roomId)
         },
 
-        received(data) {
+        received(data: IMessage) {
           setMessages((prev) => {
             const exists = prev.some((msg) => msg.id === data.id)
             if (exists) return prev
