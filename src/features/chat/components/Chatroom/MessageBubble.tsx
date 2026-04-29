@@ -15,10 +15,11 @@ export const MessageBubble = (props: IMessageBubbleProps) => {
   const onDirectionIn = () => {
     return (
       <div
-        className="bg-indigo-800 text-white border border-gray-700 max-w-[25%] rounded-2xl h-20"
+        className="bg-indigo-800 text-white border border-gray-700 min-w-[10%] max-w-[25%] rounded-2xl flex flex-col justify-between gap-1"
         style={{ padding: 12 }}
       >
-        <p>{message?.content}</p>
+        <h1 className="font-bold text-gray-600">{message?.user?.username}</h1>
+        <p className="text-justify">{message?.content}</p>
         <p className="text-[12px] font-extralight">
           {formatDate(message?.created_at)}
         </p>
@@ -29,10 +30,13 @@ export const MessageBubble = (props: IMessageBubbleProps) => {
   const onDirectionOut = () => {
     return (
       <div
-        className="bg-indigo-600 text-white border border-gray-700 max-w-[25%] rounded-2xl h-20"
+        className="bg-indigo-600 text-white border border-gray-700  min-w-[10%] max-w-[25%] rounded-2xl flex flex-col justify-between gap-1"
         style={{ padding: 12 }}
       >
-        <p>{message?.content}</p>
+        <h1 className="font-bold text-gray-600">{message?.user?.username}</h1>
+        <p className="text-justify" style={{ paddingLeft: 8 }}>
+          {message?.content}
+        </p>
         <p className="text-[12px] font-extralight text-right">
           {formatDate(message?.created_at)}
         </p>

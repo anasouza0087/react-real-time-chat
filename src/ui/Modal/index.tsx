@@ -38,7 +38,7 @@ export function Modal({
           <div className="flex flex-row w-[60%] gap-3">
             <button
               onClick={onClose}
-              className="rounded-lg border border-gray-300 text-sm hover:bg-gray-100 w-full"
+              className="rounded-lg border border-gray-300 text-sm hover:bg-gray-700 w-full"
               style={{ padding: 8 }}
             >
               {cancelText}

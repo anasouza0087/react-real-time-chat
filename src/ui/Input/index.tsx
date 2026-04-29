@@ -10,20 +10,19 @@ export const Input = (props: IInputProps) => {
   const [showPassword, setShowPassword] = useState(false)
   const { placeholder, label, onChange, error, type } = props
 
-
   return (
     <div>
       <label>
         <span className="font-bold text-gray-400 block mb-1">{label}</span>
         <div className="w-full relative">
           <input
+            {...props}
             placeholder={placeholder}
             onChange={onChange}
             type={type === "password" && showPassword ? "text" : type}
             className={`w-full  rounded bg-[#101828] border ${
               error ? "border-red-500" : "border-gray-700"
             } text-gray-400`}
-            {...props}
             style={{ padding: 8 }}
           />
           {type === "password" && (

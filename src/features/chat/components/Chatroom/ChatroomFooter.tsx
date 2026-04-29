@@ -11,6 +11,12 @@ export const ChatroomFooter = (props: IChatroomFooterProps) => {
   const { createMessage } = useMessages()
   const { roomId } = props
 
+  const handleSendMessage = () => {
+    if (!message.trim()) return
+
+    createMessage(roomId, message).then(() => setMessage(""))
+  }
+
   return (
     <div
       className="bg-gray-800 border-2 border-gray-700 min-h-[8vh] flex flex-row justify-between items-center gap-4"
@@ -20,15 +26,17 @@ export const ChatroomFooter = (props: IChatroomFooterProps) => {
         placeholder="Digite sua mensagem"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSendMessage()
+          }
+        }}
         type="text"
-        className={`w-full  rounded bg-[#101828] border "border-gray-700"
-         text-gray-400`}
+        className="w-full rounded bg-[#101828] border border-gray-700 text-gray-400"
         style={{ padding: 8 }}
       />
-      <IoSendSharp
-        fontSize={28}
-        onClick={() => createMessage(roomId, message)}
-      />
+
+      <IoSendSharp fontSize={28} onClick={handleSendMessage} />
     </div>
   )
 }

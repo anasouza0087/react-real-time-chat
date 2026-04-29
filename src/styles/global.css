@@ -20,10 +20,10 @@ body {
   width: 12px; /* Largura da barra */
 }
 .container-scroll::-webkit-scrollbar-track {
-  background: #1F2937; /* Cor do trilho */
+  background: #1f2937; /* Cor do trilho */
 }
 .container-scroll::-webkit-scrollbar-thumb {
-  background: #1F2937; /* Cor da barra */
+  background: #1f2937; /* Cor da barra */
   border-radius: 8px; /* Cantos arredondados */
 }
 .container-scroll::-webkit-scrollbar-thumb:hover {
@@ -31,7 +31,6 @@ body {
 }
 
 .container-scroll {
-  scrollbar-width: thin; /* ou 'auto' */
-  scrollbar-color: #888 #1F2937; /* cor da barra e do trilho */
+  scrollbar-width: thin;
+  scrollbar-color: #888 #1f2937;
 }
-

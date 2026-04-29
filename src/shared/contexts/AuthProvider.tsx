@@ -8,6 +8,13 @@ export function AuthProvider() {
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
+  function logout() {
+    localStorage.removeItem("token")
+    setUser(null)
+    navigate("/")
+  }
+  const token = localStorage.getItem("token")
+
   useEffect(() => {
     async function loadUser() {
       try {
@@ -21,17 +28,10 @@ export function AuthProvider() {
     }
 
     loadUser()
-  }, [])
-
-  function logout() {
-    localStorage.removeItem("token")
-    setUser(null)
-    navigate("/")
-  }
+  }, [token])
 
   return (
     <AuthContext.Provider value={{ user, loading, logout }}>
-      {/* {children} */}
       {loading ? (
         <div className="w-full h-screen flex items-center justify-center">
           <span>Carregando...</span>
