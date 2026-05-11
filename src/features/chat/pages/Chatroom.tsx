@@ -13,8 +13,14 @@ export const Chatroom = () => {
   const [openModal, setOpenModal] = useState(false)
   const { id } = useParams()
   const location = useLocation()
-  const { messages, listMessages, inviteUser, leaveRoom, setMessages } =
-    useMessages()
+  const {
+    messages,
+    listMessages,
+    inviteUser,
+    leaveRoom,
+    setMessages,
+    loadMoreMessages,
+  } = useMessages()
   const { setUserQuery, userQuery, users, setUsers, onSearchUser } = useUser()
 
   const roomNameFromState = location.state?.roomName
@@ -42,6 +48,7 @@ export const Chatroom = () => {
           messages={messages}
           roomId={Number(id)}
           setMessages={setMessages}
+          loadMoreMessages={loadMoreMessages}
         />
       </div>
 

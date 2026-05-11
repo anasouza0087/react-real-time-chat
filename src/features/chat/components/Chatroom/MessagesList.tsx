@@ -1,4 +1,10 @@
-import { useEffect, type Dispatch, type SetStateAction } from "react"
+import {
+  useEffect,
+  useRef,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react"
 import { useAuth } from "../../../../shared"
 import { MessageBubble } from "./MessageBubble"
 import { createCable } from "../../../../shared/services/cable"
@@ -8,16 +14,47 @@ interface IMessagesListProps {
   messages: IMessage[]
   roomId: number
   setMessages: Dispatch<SetStateAction<IMessage[]>>
+  loadMoreMessages: (roomId: number) => Promise<void>
 }
 
-export const MessagesList = (props: IMessagesListProps) => {
-  const { messages, roomId, setMessages } = props
+export const MessagesList = ({
+  messages,
+  roomId,
+  setMessages,
+  loadMoreMessages,
+}: IMessagesListProps) => {
   const { user } = useAuth()
+  const initialScrollDone = useRef(false)
+
+  const containerRef = useRef<HTMLDivElement>(null)
+  const loadingRef = useRef(false)
+
+  const [loadingMore, setLoadingMore] = useState(false)
+
+  const handleScroll = async () => {
+    const container = containerRef.current
+
+    if (!container || loadingRef.current) return
+
+    const reachedTop = container.scrollTop <= 10
+
+    if (reachedTop) {
+      loadingRef.current = true
+      setLoadingMore(true)
+
+      try {
+        await loadMoreMessages(roomId)
+      } finally {
+        loadingRef.current = false
+        setLoadingMore(false)
+      }
+    }
+  }
 
   const emptyListOfMessages = () => {
     return (
       <div
-        className="w-full  flex flex-col justify-between items-center"
+        className="w-full flex flex-col justify-between items-center"
         style={{ marginTop: 200 }}
       >
         <h1 className="font-bold text-gray-400">Nenhuma mensagem ainda</h1>
@@ -27,6 +64,21 @@ export const MessagesList = (props: IMessagesListProps) => {
       </div>
     )
   }
+
+  useEffect(() => {
+    const container = containerRef.current
+
+    if (!container || messages.length === 0) return
+
+    if (!initialScrollDone.current) {
+      container.scrollTop = container.scrollHeight
+      initialScrollDone.current = true
+    }
+  }, [messages.length, roomId])
+
+  useEffect(() => {
+    initialScrollDone.current = false
+  }, [roomId])
 
   useEffect(() => {
     if (!roomId) return
@@ -43,6 +95,7 @@ export const MessagesList = (props: IMessagesListProps) => {
         received(data: IMessage) {
           setMessages((prev) => {
             const exists = prev.some((msg) => msg.id === data.id)
+
             if (exists) return prev
 
             return [...prev, data]
@@ -54,25 +107,34 @@ export const MessagesList = (props: IMessagesListProps) => {
     return () => {
       subscription.unsubscribe()
     }
-  }, [roomId])
+  }, [roomId, setMessages])
 
   return (
     <div
-      className="h-full flex flex-col justify-start gap-2"
+      ref={containerRef}
+      onScroll={handleScroll}
+      className="h-full overflow-y-auto container-scroll flex flex-col gap-2"
       style={{ padding: 16 }}
     >
-      {messages?.length == 0 ? (
-        emptyListOfMessages()
-      ) : (
-        <>
-          {messages.map((message) => {
-            const messageDirection = message.user_id == user?.id ? "out" : "in"
+      {loadingMore && (
+        <p className="text-center text-gray-400 text-sm">
+          Carregando mensagens antigas...
+        </p>
+      )}
+
+      {messages.length === 0
+        ? emptyListOfMessages()
+        : messages.map((message) => {
+            const direction = message.user_id === user?.id ? "out" : "in"
+
             return (
-              <MessageBubble direction={messageDirection} message={message} />
+              <MessageBubble
+                key={message.id}
+                direction={direction}
+                message={message}
+              />
             )
           })}
-        </>
-      )}
     </div>
   )
 }

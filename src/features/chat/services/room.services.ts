@@ -21,8 +21,10 @@ export const patchRoom = async (room: ICreateRoom, roomId: number) => {
   return response?.data
 }
 
-export const getRooms = async () => {
-  const response = await api.get(`/rooms`)
+export const getRooms = async (page: number) => {
+  const response = await api.get(`/rooms`, {
+    params: { page },
+  })
 
   return response?.data
 }

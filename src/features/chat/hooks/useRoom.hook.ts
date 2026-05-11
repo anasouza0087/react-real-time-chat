@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
 import type { IRoom } from "../types/rooms.types"
-import { deleteRoom, getRooms, patchRoom, postRoom } from "../services/room.services"
+import {
+  deleteRoom,
+  getRooms,
+  patchRoom,
+  postRoom,
+} from "../services/room.services"
 
 export const useRoom = () => {
   const [roomForm, setRoomForm] = useState<Partial<IRoom>>({
@@ -16,6 +21,9 @@ export const useRoom = () => {
     isOpen: false,
     data: undefined,
   })
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
 
   const onChangeRoom = (name: "name" | "description", value: string) => {
     setRoomForm({
@@ -25,10 +33,30 @@ export const useRoom = () => {
   }
 
   const onListRooms = async () => {
-    await getRooms().then((resp) => {
-      console.log(resp)
-      setRooms(() => [...resp])
-    })
+    const resp = await getRooms(1)
+
+    setRooms(resp)
+    setPage(2)
+  }
+
+  const loadMoreRooms = async () => {
+    if (loadingMore || !hasMore) return
+
+    setLoadingMore(true)
+
+    try {
+      const resp = await getRooms(page)
+
+      if (resp.length === 0) {
+        setHasMore(false)
+        return
+      }
+
+      setRooms((prev) => [...prev, ...resp])
+      setPage((prev) => prev + 1)
+    } finally {
+      setLoadingMore(false)
+    }
   }
 
   const handleCreateOrEditRoom = (isEdit: boolean) => {
@@ -99,5 +127,7 @@ export const useRoom = () => {
     handleCreateOrEditRoom,
     onDeleteRoom,
     setRoomForm,
+    loadMoreRooms,
+    loadingMore,
   }
 }

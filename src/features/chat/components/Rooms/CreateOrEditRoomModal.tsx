@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import { Modal, Input, InputMultiline } from "../../../../ui"
-import { useRoom } from "../../hooks/useRoom.hook"
 import type { IRoom } from "../../types/rooms.types"
 
 interface ICreateOrEditRoomModal {
@@ -8,18 +7,32 @@ interface ICreateOrEditRoomModal {
   openModal: React.Dispatch<
     React.SetStateAction<{ isOpen: boolean; data: undefined | Partial<IRoom> }>
   >
+  onChangeRoom: (name: "name" | "description", value: string) => void
+  roomForm: Partial<IRoom>
+  handleCreateOrEditRoom: (isEdit: boolean) => void
+  setRoomForm: React.Dispatch<React.SetStateAction<Partial<IRoom>>>
 }
 
 export const CreateOrEditRoomModal = (props: ICreateOrEditRoomModal) => {
-  const { open, openModal } = props
-  const { onChangeRoom, roomForm, handleCreateOrEditRoom, setRoomForm } =
-    useRoom()
+  const {
+    open,
+    openModal,
+    onChangeRoom,
+    roomForm,
+    handleCreateOrEditRoom,
+    setRoomForm,
+  } = props
 
   useEffect(() => {
     if (open?.data) {
       setRoomForm({ ...open.data })
+    } else {
+      setRoomForm({
+        name: "",
+        description: "",
+      })
     }
-  }, [open?.data])
+  }, [open.data])
 
   return (
     <Modal

@@ -1,7 +1,9 @@
 import { api } from "../../../shared"
 
-export const getMessagesByRoomId = async (id: number) => {
-  const response = await api.get(`/rooms/${id}/messages`)
+export const getMessagesByRoomId = async (id: number, page: number) => {
+  const response = await api.get(`/rooms/${id}/messages`, {
+    params: { page },
+  })
   return response?.data
 }
 

@@ -2,18 +2,18 @@ import { FaPen } from "react-icons/fa"
 import { RiDeleteBinLine } from "react-icons/ri"
 
 import { useNavigate } from "react-router"
-import { useRoom } from "../../hooks/useRoom.hook"
 import type { IRoom } from "../../types/rooms.types"
 
 interface IRoomCard {
   openModal: React.Dispatch<
     React.SetStateAction<{ isOpen: boolean; data: undefined | Partial<IRoom> }>
   >
+  onDeleteRoom: (roomId: number) => void
+  rooms: IRoom[]
 }
 
 export const RoomCard = (props: IRoomCard) => {
-  const { openModal } = props
-  const { onDeleteRoom, rooms } = useRoom()
+  const { openModal, onDeleteRoom, rooms } = props
   const navigate = useNavigate()
   return (
     <>
