@@ -4,6 +4,10 @@ import { errorMessages, successMessages } from "../translations"
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
 })
 
 api.interceptors.request.use((config) => {

@@ -2,6 +2,7 @@ import { createConsumer } from "@rails/actioncable"
 
 export const createCable = () => {
   const token = localStorage.getItem("token")
+  const wsUrl = import.meta.env.VITE_API_URL.replace(/^http/, "ws")
 
-  return createConsumer(`ws://localhost:3000/cable?token=${token}`)
+  return createConsumer(`${wsUrl}/cable?token=${token}`)
 }
